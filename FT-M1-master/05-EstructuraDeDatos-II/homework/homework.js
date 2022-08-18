@@ -11,9 +11,76 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 
-function LinkedList() {}
+function LinkedList() {
+    this._length = 0;
+    this.head = null;
+}
 
-function Node(value) {}
+LinkedList.prototype.add = function (data) {
+    var node = new Node(data);
+    let current = this.head;
+
+    if (!current) {
+        this.head = node;
+        this._length++;
+        return node;
+    }
+    while (current.next) {
+        current = current.next;
+    }
+    current.next = node;
+    this._length++;
+    return node;
+};
+LinkedList.prototype.remove = function () {
+    let current = this.head;
+    if (!current) {
+        return null;
+    }
+    if (this._length === 1) {
+        toDelete = current.value;
+        current.next = null;
+        this.head = null;
+        this._length--;
+        return toDelete;
+    }
+    var toDelete = null;
+    for (let index = 0; index < this._length; index++) {
+        if (index === this._length - 1) {
+            toDelete = current.value;
+            current.next = null;
+            this._length--;
+            return toDelete;
+        } else {
+            current = current.next;
+        }
+    }
+};
+LinkedList.prototype.search = function (data) {
+    let current = this.head;
+
+    if (typeof data === "function") {
+        while (current) {
+            if (data(current.value)) {
+                return current.value;
+            }
+            current = current.next;
+        }
+    } else {
+        while (current) {
+            if (current.value === data) {
+                return current.value;
+            }
+            current = current.next;
+        }
+    }
+    return null;
+};
+
+function Node(value) {
+    this.value = value;
+    this.next = null;
+}
 
 /*
 Implementar la clase HashTable.
@@ -36,7 +103,7 @@ function HashTable() {}
 // --------------------------------
 
 module.exports = {
-  Node,
-  LinkedList,
-  HashTable,
+    Node,
+    LinkedList,
+    HashTable,
 };

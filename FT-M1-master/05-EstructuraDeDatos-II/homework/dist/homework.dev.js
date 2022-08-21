@@ -1,5 +1,4 @@
 "use strict";
-
 /*
 Implementar la clase LinkedList, definiendo los siguientes métodos:
   - add: agrega un nuevo nodo al final de la lista;
@@ -18,25 +17,30 @@ function LinkedList() {
 
 LinkedList.prototype.add = function (data) {
   var node = new Node(data);
-  let current = this.head;
+  var current = this.head;
 
   if (!current) {
     this.head = node;
     this._length++;
     return node;
   }
+
   while (current.next) {
     current = current.next;
   }
+
   current.next = node;
   this._length++;
   return node;
 };
+
 LinkedList.prototype.remove = function () {
-  let current = this.head;
+  var current = this.head;
+
   if (!current) {
     return null;
   }
+
   if (this._length === 1) {
     toDelete = current.value;
     current.next = null;
@@ -44,8 +48,10 @@ LinkedList.prototype.remove = function () {
     this._length--;
     return toDelete;
   }
+
   var toDelete = null;
-  for (let index = 0; index < this._length; index++) {
+
+  for (var index = 0; index < this._length; index++) {
     if (index === this._length - 1) {
       toDelete = current.value;
       current.next = null;
@@ -56,14 +62,16 @@ LinkedList.prototype.remove = function () {
     }
   }
 };
+
 LinkedList.prototype.search = function (data) {
-  let current = this.head;
+  var current = this.head;
 
   if (typeof data === "function") {
     while (current) {
       if (data(current.value)) {
         return current.value;
       }
+
       current = current.next;
     }
   } else {
@@ -71,9 +79,11 @@ LinkedList.prototype.search = function (data) {
       if (current.value === data) {
         return current.value;
       }
+
       current = current.next;
     }
   }
+
   return null;
 };
 
@@ -81,7 +91,6 @@ function Node(value) {
   this.value = value;
   this.next = null;
 }
-
 /*
 Implementar la clase HashTable.
 
@@ -97,38 +106,43 @@ La clase debe tener los siguientes métodos:
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
 
+
 function HashTable() {
-  this.numBuckets = 35
-  this.buckets = []
+  this.numBuckets = 35;
+  this.buckets = [];
 }
+
 HashTable.prototype.hash = function (key) {
-  if (typeof key !== "string") throw new TypeError("Keys must be strings")
-  let code = 0
-  for (let i = 0; i < key.length; i++) {
-    code += key.charCodeAt(i)
+  if (typeof key !== "string") throw new TypeError("Keys must be strings");
+  var code = 0;
+
+  for (var i = 0; i < key.length; i++) {
+    code += key.charCodeAt(i);
   }
-  return code % this.numBuckets
 
-}
+  return code % this.numBuckets;
+};
+
 HashTable.prototype.set = function (key, value) {
-  const hashCode = this.hash(key)
-  this.buckets[hashCode] = value
-}
-HashTable.prototype.get = function (key) {
-  const code = this.hash(key)
-  return this.buckets[code]
-}
-HashTable.prototype.hasKey = function (key) {
-  const code = this.hash(key)
-  if (this.buckets[code]) this.buckets[code].hasOwnProperty()
-  return false
-}
+  var hashCode = this.hash(key);
+  this.buckets[hashCode] = value;
+};
 
-// No modifiquen nada debajo de esta linea
+HashTable.prototype.get = function (key) {
+  var code = this.hash(key);
+  return this.buckets[code];
+};
+
+HashTable.prototype.hasKey = function (key) {
+  var code = this.hash(key);
+  if (this.buckets[code]) this.buckets[code].hasOwnProperty();
+  return false;
+}; // No modifiquen nada debajo de esta linea
 // --------------------------------
 
+
 module.exports = {
-  Node,
-  LinkedList,
-  HashTable,
+  Node: Node,
+  LinkedList: LinkedList,
+  HashTable: HashTable
 };

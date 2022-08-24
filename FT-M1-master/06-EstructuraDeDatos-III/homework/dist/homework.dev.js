@@ -1,5 +1,4 @@
 "use strict";
-
 /*
  Implementar la clase BinarySearchTree, definiendo los siguientes métodos recursivos:
   - size: retorna la cantidad total de nodos del árbol
@@ -15,11 +14,11 @@ function BinarySearchTree(value) {
   this.value = value;
   this.left = null;
   this.right = null;
-
 }
 
 BinarySearchTree.prototype.size = function () {
-  var cont = 1
+  var cont = 1;
+
   if (!this.left && !this.right) {
     return 1;
   } else {
@@ -28,52 +27,51 @@ BinarySearchTree.prototype.size = function () {
     } else if (!this.left && this.right) {
       return cont + this.right.size();
     } else {
-      return this.left.size() + this.right.size() + 1
+      return this.left.size() + this.right.size() + 1;
     }
   }
-}
+};
 
 BinarySearchTree.prototype.insert = function (value, pos) {
-  if (!pos) var pos = this
+  if (!pos) var pos = this;
+
   if (value < this.value) {
     if (this.left === null) {
-      this.left = new BinarySearchTree(value)
+      this.left = new BinarySearchTree(value);
     } else {
-      this.left.insert(value, pos)
+      this.left.insert(value, pos);
     }
   } else if (value >= this.value) {
     if (this.right === null) {
-      this.right = new BinarySearchTree(value)
+      this.right = new BinarySearchTree(value);
     } else {
-      this.right.insert(value, pos)
+      this.right.insert(value, pos);
     }
   }
-  return this
-}
+
+  return this;
+};
 
 BinarySearchTree.prototype.contains = function (value, pos) {
   if (this.value === value) {
     return true;
   }
+
   if (value < this.value && this.left !== null) {
     return this.left.contains(value);
   } else if (value >= this.value && this.right !== null) {
-    return this.right.contains(value)
+    return this.right.contains(value);
   } else {
     return false;
   }
-}
+};
 
-BinarySearchTree.prototype.depthFirstForEach = function (cb, order) {
+BinarySearchTree.prototype.depthFirstForEach = function () {};
 
-}
-
-BinarySearchTree.prototype.breadthFirstForEach = function () {}
-
-
-// No modifiquen nada debajo de esta linea
+BinarySearchTree.prototype.breadthFirstForEach = function () {}; // No modifiquen nada debajo de esta linea
 // --------------------------------
 
+
 module.exports = {
-  BinarySearchTree,
+  BinarySearchTree: BinarySearchTree
 };
